@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillDrill | Premium Engineering Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="hidden">
+        <div class="nav-brand" style="cursor:pointer" id="nav-brand-logo">
+            <i class="fa-solid fa-satellite-dish"></i> SkillDrill
+        </div>
+        <div class="nav-user">
+            <button id="nav-analytics-btn" class="btn btn-outline-info" title="View Analytics"><i class="fa-solid fa-chart-pie"></i> <span class="hidden-mobile">Analytics</span></button>
+            <span id="nav-username" class="hidden-mobile"></span>
+            <button id="logout-btn" class="btn btn-outline-danger" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+    </nav>
+
+    <main class="app-container">
+        
+        <!-- Authentication Section -->
+        <section id="auth-section" class="active">
+            <div class="auth-container glass-panel">
+                <div class="auth-header">
+                    <i class="fa-solid fa-rocket pulse-icon"></i>
+                    <h2>Welcome to SkillDrill</h2>
+                    <p>The global proving ground for engineers.</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Username or Email</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="login-email" required placeholder="admin, test1, test2...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="login-password" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signup-form" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="signup-name" required placeholder="Jane Doe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="signup-email" required placeholder="engineer@skilldrill.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="signup-password" required minlength="6" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="hidden">
+            <div class="dashboard-header">
+                <h2>Ready for your next challenge, <span id="dash-username" class="highlight"></span>?</h2>
+                <p>Select an engineering subject within your desired branch.</p>
+            </div>
+
+            <div class="subjects-grid">
+                <!-- Computer Science -->
+                <div class="subject-card glass-panel">
+                    <div class="subject-icon bg-blue">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3>Computer Science</h3>
+                    <p>Core programming foundations.</p>
+                    <div class="subject-buttons">
+                        <button class="btn btn-outline-primary btn-block start-subject-btn mb-2" data-subject="cs_ds" data-title="CS: Data Structures">Data Structures</button>
+                        <button class="btn btn-outline-primary btn-block start-subject-btn" data-subject="cs_os" data-title="CS: Operating Systems">Operating Systems</button>
+                    </div>
+                </div>
+                
+                <!-- Electrical Engineering -->
+                <div class="subject-card glass-panel">
+                    <div class="subject-icon bg-yellow">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>Electrical Eng.</h3>
+                    <p>Power, circuits, and signals.</p>
+                    <div class="subject-buttons">
+                        <button class="btn btn-outline-primary btn-block start-subject-btn mb-2" data-subject="ee_c" data-title="EE: Circuit Analysis">Circuit Analysis</button>
+                        <button class="btn btn-outline-primary btn-block start-subject-btn" data-subject="ee_s" data-title="EE: Signals & Systems">Signals & Systems</button>
+                    </div>
+                </div>
+
+                <!-- Mechanical Engineering -->
+                <div class="subject-card glass-panel">
+                    <div class="subject-icon bg-red">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                    <h3>Mechanical Eng.</h3>
+                    <p>Dynamics, heat, and machines.</p>
+                    <div class="subject-buttons">
+                        <button class="btn btn-outline-primary btn-block start-subject-btn mb-2" data-subject="me_t" data-title="ME: Thermodynamics">Thermodynamics</button>
+                        <button class="btn btn-outline-primary btn-block start-subject-btn" data-subject="me_m" data-title="ME: Mechanics">Mechanics</button>
+                    </div>
+                </div>
+
+                <!-- Civil Engineering -->
+                <div class="subject-card glass-panel">
+                    <div class="subject-icon bg-green">
+                        <i class="fa-solid fa-bridge"></i>
+                    </div>
+                    <h3>Civil Eng.</h3>
+                    <p>Structures, materials, and earth.</p>
+                    <div class="subject-buttons">
+                        <button class="btn btn-outline-primary btn-block start-subject-btn mb-2" data-subject="ce_sa" data-title="CE: Structural Analysis">Structural Analysis</button>
+                        <button class="btn btn-outline-primary btn-block start-subject-btn" data-subject="ce_fm" data-title="CE: Fluid Mechanics">Fluid Mechanics</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-preview glass-panel mt-4">
+                <h3><i class="fa-solid fa-chart-line"></i> Lifetime Snapshot</h3>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <span class="stat-value" id="global-quizzes-taken">0</span>
+                        <span class="stat-label">Total Submissions</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="global-avg-score">0%</span>
+                        <span class="stat-label">Global Accuracy</span>
+                    </div>
+                    <div class="stat-box pointer" id="go-to-analytics-box" style="background: rgba(67, 97, 238, 0.2); border: 1px solid var(--primary); transition: 0.2s;">
+                        <span class="stat-value"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span class="stat-label text-white">Full Analytics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="hidden">
+            <div class="quiz-header glass-panel">
+                <div class="quiz-info">
+                    <h3 id="quiz-subject-title">Subject Name</h3>
+                    <div class="progress-bar-container">
+                        <div id="quiz-progress-bar" class="progress-bar"></div>
+                    </div>
+                    <p class="question-count">Question <span id="current-q-num">1</span> of <span id="total-q-num">10</span></p>
+                </div>
+                <div class="timer-container" id="timer-box">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="time-remaining">15:00</span>
+                </div>
+            </div>
+
+            <div class="question-container glass-panel mt-3">
+                <div class="difficulty-badge" id="q-difficulty">Medium</div>
+                <h2 id="question-text" class="question-text">Loading question...</h2>
+                <div id="options-container" class="options-grid">
+                    <!-- Options populated by JS -->
+                </div>
+            </div>
+            
+            <div class="quiz-footer mt-3">
+                <button id="next-btn" class="btn btn-primary" disabled>Next Question <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Results Section (Post-Quiz) -->
+        <section id="results-section" class="hidden">
+            <div class="results-container glass-panel">
+                <div class="results-header text-center">
+                    <i class="fa-solid fa-trophy trophy-icon"></i>
+                    <h2>Mission Accomplished!</h2>
+                    <p id="result-message">Great job completing the assessment.</p>
+                </div>
+
+                <div class="score-circle">
+                    <div class="score-text">
+                        <span id="final-score">0</span>%
+                    </div>
+                </div>
+
+                <div class="stats-grid mt-4">
+                    <div class="stat-item correct">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span id="correct-count">0</span> Correct
+                    </div>
+                    <div class="stat-item incorrect">
+                        <i class="fa-solid fa-times-circle"></i>
+                        <span id="incorrect-count">0</span> Incorrect
+                    </div>
+                    <div class="stat-item time">
+                        <i class="fa-solid fa-stopwatch"></i>
+                        <span id="time-spent">0:00</span> Time Spent
+                    </div>
+                </div>
+
+                <div class="chart-container mt-4" style="height: 250px; position:relative;">
+                    <canvas id="resultsChart"></canvas>
+                </div>
+
+                <div class="results-actions mt-4">
+                    <button id="view-answers-btn" class="btn btn-outline-primary"><i class="fa-solid fa-list-check"></i> View Explanations</button>
+                    <button class="btn btn-primary back-dashboard-btn"><i class="fa-solid fa-house"></i> Dashboard</button>
+                </div>
+            </div>
+            
+            <!-- Answer Review Modal (Inline logic) -->
+            <div id="answers-review-container" class="hidden mt-4 glass-panel results-container">
+                <h3>Detailed Review</h3>
+                <div id="review-list"></div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary back-dashboard-btn">Back to Dashboard</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="hidden">
+            <div class="analytics-header glass-panel mb-4">
+                <h2><i class="fa-solid fa-chart-pie"></i> Your Engineering Analytics</h2>
+                <p>Review all your past submissions and study the detailed correct answers.</p>
+            </div>
+            
+            <div class="analytics-layout">
+                <!-- History Table -->
+                <div class="history-panel glass-panel">
+                    <h3>Submission History</h3>
+                    <div class="history-list" id="history-list">
+                        <!-- Populated by JS -->
+                        <div class="text-center text-muted mt-3">No submissions yet to display.</div>
+                    </div>
+                </div>
+
+                <!-- Detailed View of Selected History -->
+                <div class="history-details glass-panel hidden" id="history-details-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <h3 id="hist-detail-title">Submission Details</h3>
+                            <p class="text-muted" id="hist-detail-meta" style="margin-bottom:1rem;"></p>
+                        </div>
+                        <button id="close-hist-detail-btn" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-times"></i> Close</button>
+                    </div>
+                    <div id="hist-review-list"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
